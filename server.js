@@ -57,18 +57,19 @@ MongoClient.connect(connectionString, {useUnifiedTopology: true})
             )
             .then(result => {
                 console.log(result)
+                res.json('Success')
             })
             .catch(error => console.error(error))
         })
         app.delete('/quotes', (req, res) => {
             quotesCollection.deleteOne(
-              { name: req.body.name }
+              { name: 'req.body.name' }
             )
             .then(result => {
                 if (result.deletedCount === 0) {
                     return res.json('No quote to delete')
                 }
-                res.json('Deleted Darth Vadar\'s quote')
+                res.json('Deleted Yzma\'s quote')
             })
             .catch(error => console.error(error))
         })
@@ -76,10 +77,10 @@ MongoClient.connect(connectionString, {useUnifiedTopology: true})
         // ========================
         // Listen
         // ========================
-        const isProduction = process.env.NODE_ENV === 'production'
-        const port = isProduction ? 7500 : 3000
-        app.listen(port, function() {
-            console.log(`listening on ${port}`)
+        // const isProduction = process.env.NODE_ENV === 'production'
+        // const port = isProduction ? 7500 : 3000
+        app.listen(3000, function() {
+            console.log(`listening on 3000`)
         })
     })
     .catch(error => console.error(error))

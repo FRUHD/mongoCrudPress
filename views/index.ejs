@@ -1,39 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>The Emperor's New App</title>
-    </head>
 
-    <body>
-        <h1>Hooray, we're using Node and Express again!</h1>
-    
-        <form action="/quotes" method="POST">
-            <input type="text" placeholder="who said that?!" name="name">
-            <input type="text" placeholder="quote" name="quote">
-            <button type="submit">Submit</button>
-        </form>
+<head>
+    <meta charset="UTF-8">
+    <title>The Emperor's New App</title>
+    <!-- external CSS link -->
 
-        <h2> Quotes </h2>
-        <ul class="quotes">
-            <!-- Loop through quotes -->
-            <% for(var i = 0; i < quotes.length; i++) {%>
-              <li class="quote">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <h1>Hooray, we're using Node and Express again!</h1>
+
+    <form action="/quotes" method="POST">
+        <input type="text" placeholder="who said that?!" name="name">
+        <input type="text" placeholder="quote" name="quote">
+        <button type="submit">Submit</button>
+    </form>
+
+    <div>
+        <h2>Yzma throws a potion!</h2>
+        <p>
+            Replace first Kuzco quote with a quote written by Yzma
+        </p>
+        <button id="update-button">Replace Kuzco's quote</button>
+    </div>
+
+    <div>
+        <h2>Remove Yzma!</h2>
+        <p>
+            Delete one Yzma quote. Does nothing if there are no more Yzma quotes
+        </p>
+        <button id="delete-button">Delete Yzma's quote</button>
+    </div>
+    <div id="message"></div>
+
+
+    <h2> Quotes </h2>
+    <ul class="quotes">
+        <!-- Loop through quotes -->
+        <% for(var i=0; i < quotes.length; i++) {%>
+            <li class="quote">
                 <!-- Output name from the iterated quote object -->
-                <span><%= quotes[i].name %></span>:
+                <span>
+                    <%= quotes[i].name %>
+                </span>:
                 <!-- Output quote from the iterated quote object -->
-                <span><%= quotes[i].quote %></span>
-              </li>
+                <span>
+                    <%= quotes[i].quote %>
+                </span>
+            </li>
             <% } %>
-          </ul>
+    </ul>
 
-          <div>
-            <h2>Yzma attacks!</h2>
-            <p>
-              Replace first Kuzco quote with a quote written by Yzma
-            </p>
-            <button id="update-button">Replace Kuzco's quote</button>
-          </div>
-          <script src="/main.js"></script>
-    </body>
+    <script type="text/javascript" src="/main.js"></script>
+</body>
+
 </html>

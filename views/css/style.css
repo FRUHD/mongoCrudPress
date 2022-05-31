@@ -1,0 +1,65 @@
+/* Box Model Hack */
+  * {
+      box-sizing: border-box;
+  }
+
+/* Clear fix hack */
+  .clearfix:after {
+      content: ".";
+      display: block;
+      clear: both;
+      visibility: hidden;
+      line-height: 0;
+      height: 0;
+  }
+  .clear {
+    clear: both;
+  }
+
+/* BORDER! ALL! THE! THINGS!!!!! */
+  html * {border: 1px dotted fuchsia;}
+
+/******************************************
+/* BASE STYLES
+/*******************************************/
+  html {
+    font-size: 62.5%;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 1.6rem;
+    line-height: 1em;
+  }
+  body {
+  }
+
+
+/******************************************
+/* LAYOUT
+/*******************************************/
+  header {
+  }
+
+  footer {
+  }
+
+/******************************************
+/* ADDITIONAL STYLES
+/*******************************************/
+/* micro-phone */
+  @media all and (max-width: 290px) {
+  }
+/* phablet */
+  @media all and (max-width: 450px) {
+  }
+/* tablet */
+  @media all and (min-width: 680px) {
+  }
+/* monitor */
+  @media all and (min-width: 1024px) {
+  }
+/* monitor massive*/
+  @media all and (min-width: 1920px) {
+  }
