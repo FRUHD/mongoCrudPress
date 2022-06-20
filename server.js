@@ -3,14 +3,26 @@ const express = require('express');
 // const bodyParser= require('body-parser') //deprepcated
 const app = express();
 const MongoClient = require('mongodb').MongoClient
-const connectionString = 'mongodb://FRUHD:wB6wDJEk@cluster0-shard-00-00.qf1ze.mongodb.net:27017,cluster0-shard-00-01.qf1ze.mongodb.net:27017,cluster0-shard-00-02.qf1ze.mongodb.net:27017/?ssl=true&replicaSet=atlas-437pk4-shard-0&authSource=admin&retryWrites=true&w=majority'
-// 'mongodb+srv://FRUHD:wB6wDJEk@cluster0.qf1ze.mongodb.net/?retryWrites=true&w=majority'
+require('dotenv').config()  //secret env
+// const connectionString = 'mongodb://FRUHD:<>@cluster0-shard-00-00.qf1ze.mongodb.net:27017,cluster0-shard-00-01.qf1ze.mongodb.net:27017,cluster0-shard-00-02.qf1ze.mongodb.net:27017/?ssl=true&replicaSet=atlas-437pk4-shard-0&authSource=admin&retryWrites=true&w=majority'
+// // 'mongodb+srv://FRUHD:<>@cluster0.qf1ze.mongodb.net/?retryWrites=true&w=majority'
 
-MongoClient.connect(connectionString, {useUnifiedTopology: true})
+// MongoClient.connect(connectionString, {useUnifiedTopology: true})
+//     .then(client => {
+//         console.log('Connected to Database')
+//         const db = client.db('emperor-quotes')
+//         const quotesCollection = db.collection('quotes')
+
+let db,
+    dbConnectionString = process.env.DB_STRING,
+    dbName = 'emperor-quotes',    //get from MongoDB
+    collection
+
+MongoClient.connect(dbConnectionString)
     .then(client => {
-        console.log('Connected to Database')
-        const db = client.db('emperor-quotes')
-        const quotesCollection = db.collection('quotes')
+        console.log('Connected to Database!')
+        db = client.db(dbName)
+        collection = db.collection('quotes')    //get from MongoDB
 
         // ========================
         // Middlewares
@@ -25,7 +37,7 @@ MongoClient.connect(connectionString, {useUnifiedTopology: true})
         // ========================
         app.get('/', (req, res) => {
             console.log('REQUEST')
-            quotesCollection.find().toArray()
+            collection.find().toArray()
                 .then(results => {
                     console.log(results)
                     res.render('index.ejs', {quotes: results})
@@ -35,7 +47,7 @@ MongoClient.connect(connectionString, {useUnifiedTopology: true})
             // res.sendFile(__dirname + '/index.html') //serve index.html in root of project folder
         })
         app.post('/quotes', (req, res) => {
-            quotesCollection.insertOne(req.body)
+            collection.insertOne(req.body)
                 .then(result => {
                     console.log(result)
                     res.redirect('/')
@@ -43,7 +55,7 @@ MongoClient.connect(connectionString, {useUnifiedTopology: true})
                 .catch(error => console.error(error))
         })
         app.put('/quotes', (req, res) => {
-            quotesCollection.findOneAndUpdate(
+            collection.findOneAndUpdate(
                 { name: 'Kuzco' },
                 {
                     $set: {
@@ -62,8 +74,8 @@ MongoClient.connect(connectionString, {useUnifiedTopology: true})
             .catch(error => console.error(error))
         })
         app.delete('/quotes', (req, res) => {
-            quotesCollection.deleteOne(
-              { name: 'req.body.name' }
+            collection.deleteOne(
+              { name: req.body.name }
             )
             .then(result => {
                 if (result.deletedCount === 0) {
@@ -87,8 +99,6 @@ MongoClient.connect(connectionString, {useUnifiedTopology: true})
 
 //RUN npm run dev
 
-//continue: Using EJS
-//Mayan: https://www.twitch.tv/videos/1312648574 @ 3:27:36
 
 // Body-parser
 // app.use(bodyParser.urlencoded({ extended: true }))  // Deprecated
