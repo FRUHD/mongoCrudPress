@@ -99,6 +99,8 @@ MongoClient.connect(dbConnectionString)
 
 //RUN npm run dev
 
+//continue: Using EJS
+//Mayan: https://www.twitch.tv/videos/1312648574 @ 3:27:36
 
 // Body-parser
 // app.use(bodyParser.urlencoded({ extended: true }))  // Deprecated
